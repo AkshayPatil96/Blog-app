@@ -1,4 +1,5 @@
 import mongoose, { model, Schema } from "mongoose";
+import { InitUser } from "../config/interface";
 
 const userSchema = new Schema(
     {
@@ -24,6 +25,10 @@ const userSchema = new Schema(
             default:
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe_qlz4iIw1GmEkIgoSBOeZe_nC21QTykTHcMiKm1NL86m-wUanka9LESW8bXI__txRyM&usqp=CAU",
         },
+        role: {
+            type: String,
+            default: "user", // admin
+        },
         type: {
             type: String,
             default: "normal",
@@ -34,6 +39,6 @@ const userSchema = new Schema(
     }
 );
 
-const User = model("user", userSchema);
+const User = model<InitUser>("user", userSchema);
 
 export default User;

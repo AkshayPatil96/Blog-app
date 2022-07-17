@@ -37,12 +37,12 @@ export const validateRegister = async (
     next();
 };
 
-const validatePhone = (phone: string) => {
+export const validatePhone = (phone: string) => {
     const re = /^[+]/g;
     return re.test(phone);
 };
 
-const validateEmail = (email: string) => {
+export const validateEmail = (email: string) => {
     return String(email)
         .toLowerCase()
         .match(
