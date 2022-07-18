@@ -12,7 +12,6 @@ const login = () => {
                     <LoginPass />
                     <small
                         className="row my-2 text-primary"
-                        style={{ cursor: "pointer" }}
                     >
                         <span className="col-5">
                             <Link href={"/forgot_password"} className="col-6">

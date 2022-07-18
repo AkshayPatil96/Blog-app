@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store, wrapper } from "../redux/store";
 import Navbar from "../components/Navbar";
 import Alert from "../components/alert/Alert";
+import "../interceptors/axios";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

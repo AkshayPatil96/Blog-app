@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../utils/TypeScript";
 import Loading from "./Loading";
-import Toast from "./toast";
+import Toast from "./Toast";
 
 const Alert = () => {
     const { alert } = useSelector((state: RootStore) => state);

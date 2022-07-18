@@ -10,6 +10,12 @@ export interface LoginType {
     password: string;
 }
 
+export interface RegisterType {
+    name: string;
+    account: string;
+    password: string;
+}
+
 export interface IUser extends LoginType {
     _id: string;
     name: string;

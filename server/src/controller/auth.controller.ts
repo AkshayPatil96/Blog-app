@@ -40,6 +40,7 @@ const authController = {
             return res.status(500).json({ msg: error.message });
         }
     },
+
     login: async (req: Request, res: Response) => {
         try {
             const { account, password } = req.body;
@@ -55,6 +56,7 @@ const authController = {
             return res.status(500).json({ msg: error.message });
         }
     },
+
     logout: async (req: Request, res: Response) => {
         try {
             res.clearCookie("refreshtoken", { path: `/auth/refresh_token` });
@@ -63,6 +65,7 @@ const authController = {
             return res.status(500).json({ msg: error.message });
         }
     },
+
     refreshToken: async (req: Request, res: Response) => {
         try {
             const refToken = req.cookies.refreshtoken;
