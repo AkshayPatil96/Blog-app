@@ -11,7 +11,9 @@ const register = () => {
                     <h3 className="text-uppercase text-center mb-4">
                         Register
                     </h3>
+
                     <RegisterForm />
+
                     <small className="row my-2 text-primary">
                         <p>
                             {"Already have an account?"}

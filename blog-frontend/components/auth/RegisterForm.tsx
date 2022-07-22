@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/actions/authAction";
-import { FormEvent, InputChange, RegisterType } from "../../utils/TypeScript";
+import { register } from "../../redux/actions/authAction";
+import { FormEvent, InputChange, IRegisterType } from "../../utils/TypeScript";
 
 const RegisterForm = () => {
     const initState = { name: "", account: "", password: "" };
-    const [registerUser, setRegisterUser] = useState<RegisterType>(initState);
+    const [registerUser, setRegisterUser] = useState<IRegisterType>(initState);
     const { name, account, password } = registerUser;
 
     const [typePass, setTypePass] = useState(false);
@@ -22,7 +22,7 @@ const RegisterForm = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        // dispatch(register(registerUser));
+        dispatch(register(registerUser));
     };
 
     return (
@@ -41,9 +41,10 @@ const RegisterForm = () => {
                     onChange={handleChange}
                 />
             </div>
+            
             <div className="form-group mb-3">
                 <label htmlFor="account" className="form-label">
-                    Email / Phone Number
+                    Email
                 </label>
                 <input
                     type="text"
@@ -90,7 +91,7 @@ const RegisterForm = () => {
             <button
                 type="submit"
                 className="btn btn-dark w-100"
-                disabled={account && password ? false : true}
+                disabled={name && account && password ? false : true}
             >
                 Register
             </button>

@@ -6,6 +6,7 @@ import { genAccessToken, genRefreshToken } from "../config/jwt";
 import sendEmail from "../config/sendMail";
 import { validateEmail, validatePhone } from "../middleware/validation";
 import { IDecodedToken, InitUser } from "../config/interface";
+import passport from "passport";
 
 const CLIENT_URL = `${process.env.BASE_URL}`;
 
@@ -57,33 +58,56 @@ const authController = {
         }
     },
 
-    logout: async (req: Request, res: Response) => {
+    callback: async (req: Request, res: Response) => {
+        const { user, token }: any = req.user;
         try {
-            res.clearCookie("refreshtoken", { path: `/auth/refresh_token` });
-            return res.json({ msg: "Logged out!" });
+            return res.redirect(
+                `https://localhost:3000/googleRedirect?${token}`
+            );
         } catch (error: any) {
             return res.status(500).json({ msg: error.message });
         }
     },
 
+    OAuthFailure: async (req: Request, res: Response) => {
+        try {
+            res.send("Something is wrong, try again");
+        } catch (error) {
+            console.log("error: ", error);
+        }
+    },
+
     refreshToken: async (req: Request, res: Response) => {
         try {
-            const refToken = req.cookies.refreshtoken;
+            const refToken = req.cookies["refreshtoken"];
             if (!refToken)
-                return res.status(400).json({ msg: "Please Login!" });
+                return res.status(400).json({ msg: "Please Login! Re" });
 
             const decoded = <IDecodedToken>(
                 jwt.verify(refToken, `${process.env.REFRESH_TOKEN_SECRET}`)
             );
 
-            if (!decoded) return res.status(400).json({ msg: "Please Login!" });
+            if (!decoded)
+                return res.status(400).json({ msg: "Please Login! De" });
 
             const user = await User.findById(decoded.id).select("-password");
-            if (!user) return res.status(400).json({ msg: "Please Login!" });
+            if (!user)
+                return res
+                    .status(400)
+                    .json({ msg: "User does not exist, please Login!" });
 
             const access_token = genAccessToken({ id: user._id });
 
-            res.json({ msg: "Success!", access_token });
+            res.json({ access_token, user });
+        } catch (error: any) {
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+
+    logout: async (req: Request, res: Response) => {
+        try {
+            res.clearCookie("refreshtoken", { path: `/auth/refresh_token` });
+            return res.json({ msg: "Logged out!" });
         } catch (error: any) {
             return res.status(500).json({ msg: error.message });
         }

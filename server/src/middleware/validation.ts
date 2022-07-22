@@ -12,11 +12,11 @@ export const validateRegister = async (
     } else if (name.length > 20) {
         return res
             .status(400)
-            .json({ msg: "Your name can be 20 characters long." });
+            .json({ msg: "Your name is up to 20 characters long." });
     } else if (name.length < 3) {
         return res
             .status(400)
-            .json({ msg: "Your name can be at least 3 characters long." });
+            .json({ msg: "Your name must be at least 3 characters long." });
     }
 
     if (!account) {

@@ -1,15 +1,15 @@
 import { Document } from "mongoose";
 
 export interface InitUser extends Document {
+    _id: string;
     name: string;
     account: string;
     password: string;
-    avatar: string;
-    role: string;
-    type: string;
-    _doc: object;
+    avatar?: string;
+    role?: string;
+    type?: string;
+    _doc?: object;
 }
-
 
 export interface INewUser {
     name: string;

@@ -10,7 +10,7 @@ export interface LoginType {
     password: string;
 }
 
-export interface RegisterType {
+export interface IRegisterType {
     name: string;
     account: string;
     password: string;
@@ -31,6 +31,7 @@ export interface IUser extends LoginType {
 export type IAuth = {
     token: string;
     user: IUser;
+    access_token?: string;
 };
 
 export type IAlert = {

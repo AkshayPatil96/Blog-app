@@ -1,7 +1,13 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/authAction";
-import { FormEvent, InputChange, LoginType } from "../../utils/TypeScript";
+import {
+    FormEvent,
+    InputChange,
+    LoginType,
+    RootStore,
+} from "../../utils/TypeScript";
 
 const LoginPass = () => {
     const initState = { account: "", password: "" };
@@ -29,7 +35,7 @@ const LoginPass = () => {
         <form onSubmit={handleSubmit}>
             <div className="form-group mb-3">
                 <label htmlFor="account" className="form-label">
-                    Email / Phone Number
+                    Email
                 </label>
                 <input
                     type="text"

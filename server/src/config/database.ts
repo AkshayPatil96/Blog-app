@@ -1,17 +1,29 @@
-import mongoose, { mongo } from "mongoose";
+const { default: mongoose } = require("mongoose");
 
-const URI = process.env.MONGODB_URL;
+mongoose
+    .connect(process.env.MONGODB_URL, {
+        dbName: process.env.DB_NAME,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        console.log("mongodb connected.");
+    })
+    .catch((err: any) => console.log(err));
 
-mongoose.connect(
-    `${URI}`,
-    // {
-    //     useCreateIndex: true,
-    //     useFindAndModify: true,
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true,
-    // },
-    (error) => {
-        if (error) throw error;
-        console.log("Mongodb connected");
-    }
-);
+mongoose.connection.on("connected", () => {
+    console.log("Mongoose connected to db");
+});
+
+mongoose.connection.on("error", (err: any) => {
+    console.log(err.message);
+});
+
+mongoose.connection.on("disconnected", () => {
+    console.log("Mongoose connection is disconnected");
+});
+
+process.on("SIGINT", async () => {
+    await mongoose.connection.close();
+    process.exit(0);
+});
