@@ -6,8 +6,8 @@ import express, {
     urlencoded,
 } from "express";
 import cookieParser from "cookie-parser";
-import session from "express-session";
-import passport from "passport";
+// import session from "express-session";
+// import passport from "passport";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -28,9 +28,9 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(session({ secret: "cats" }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({ secret: "cats" }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Routes
 app.get("/", (req: Request, res: Response) => {

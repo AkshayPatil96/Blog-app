@@ -10,23 +10,23 @@ import { useEffect } from "react";
 import { refreshToken } from "../redux/actions/authAction";
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(refreshToken());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(refreshToken());
+  }, [dispatch]);
 
-    return (
-        <>
-            <div className="container">
-                <Provider store={store}>
-                    <Alert />
-                    <Navbar />
-                    <Component {...pageProps} />
-                </Provider>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="container">
+        <Provider store={store}>
+          <Alert />
+          <Navbar />
+          <Component {...pageProps} />
+        </Provider>
+      </div>
+    </>
+  );
 }
 
 export default wrapper.withRedux(MyApp);
